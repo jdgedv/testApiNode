@@ -5,7 +5,7 @@
 var categoriaModel ={}
 
 categoriaModel.validaParams = function(post, callback) {
-    console.log("categoriaModel post.cod_cat ",post.estado.toString())
+
     if(!post.cod_cat || post.cod_cat == '' || Number(post.cod_cat) == 0){
         return callback({state: false, mensaje: 'El código de categoría no puede ser nulo o vacío'})
     }
