@@ -11,22 +11,23 @@ productosController.saveProducto = function(req,res){
 
 
     productoModel.existeProducto(producto, function(resultado){
-        if(resultado.state){
-            res.json({ mensaje: 'El producto ya existe, no se puede volver a registrar' });
-            return false;
-        } else {
-            productoModel.validaParams(producto, function(result){
-                if(!result.state) {
-                    res.json({ mensaje:result.mensaje });
-                    return false;
-                }else{
-                    productos.push(producto);
-                    res.json({ mensaje:"El producto fue registrado" });
+
+        productoModel.validaParams(producto, function(result){
+            if(!result.state) {
+                res.json({ mensaje:result.mensaje });
+                return false;
+            }else{
+                if(resultado.state){
+                    res.json({ mensaje: 'El producto ya existe, no se puede volver a registrar' });
                     return false;
                 }
-                
-            });
-        }
+                productos.push(producto);
+                res.json({ mensaje:"El producto fue registrado" });
+                return false;
+            }
+            
+        });
+        
     });
 
 
