@@ -12,22 +12,23 @@ categoriasController.saveCategoria = function(req,res){
 
 
     categoriasModel.existeCategoria(categoria, function(resultado){
-        if(resultado.state){
-            res.json({ mensaje: 'La categoria ya existe, no se puede volver a registrar' });
-            return false;
-        } else {
+
             categoriasModel.validaParams(categoria, function(result){
                 if(!result.state) {
                     res.json({ mensaje:result.mensaje });
                     return false;
                 }else{
+                    if(resultado.state){
+                        res.json({ mensaje: 'La categoria ya existe, no se puede volver a registrar' });
+                        return false;
+                    }
                     categorias.push(categoria);
                     res.json({ mensaje:"La categoría fue registrada" });
                     return false;
                 }
                 
             });
-        }
+
     });
 
     
