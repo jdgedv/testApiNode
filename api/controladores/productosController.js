@@ -2,7 +2,7 @@ productoModel = require('../modelos/producto').productos;
 var productosController = {}
 
 productosController.getProductos = function(res){
-    res.json({ resultado: productos });
+    res.json({ state:true,data: productos });
 }
 
 productosController.saveProducto = function(req,res){
@@ -14,15 +14,13 @@ productosController.saveProducto = function(req,res){
 
         productoModel.validaParams(producto, function(result){
             if(!result.state) {
-                res.json({ mensaje:result.mensaje });
+                res.json(result);
                 return false;
             }else{
-                if(resultado.state){
-                    res.json({ mensaje: 'El producto ya existe, no se puede volver a registrar' });
-                    return false;
-                }
+                producto.cod_cat = Number(producto.cod_cat);
                 productos.push(producto);
-                res.json({ mensaje:"El producto fue registrado" });
+                
+                res.json({ state: true, mensaje:"El Producto se almaceno correctamente" });
                 return false;
             }
             

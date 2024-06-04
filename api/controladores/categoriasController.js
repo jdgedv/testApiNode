@@ -15,7 +15,7 @@ categoriasController.saveCategoria = function(req,res){
 
             categoriasModel.validaParams(categoria, function(result){
                 if(!result.state) {
-                    res.json({ mensaje:result.mensaje });
+                    res.json(result);
                     return false;
                 }else{
                     if(resultado.state){
@@ -23,7 +23,7 @@ categoriasController.saveCategoria = function(req,res){
                         return false;
                     }
                     categorias.push(categoria);
-                    res.json({ mensaje:"La categoría fue registrada" });
+                    res.json({ state: true, mensaje:"La categoria se almaceno correctamente" });
                     return false;
                 }
                 

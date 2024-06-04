@@ -1,13 +1,8 @@
 const express = require('express');
 global.app=express();
 
-global.productos = [
-    {'cod_cat':'111','cod_producto':'100A','nombre':'ProductoTest'},
-    
-];
-global.categorias = [
-    {'cod_cat':'111','nombre':'CategoriaTest','estado':'true'}
-];
+global.productos = [];
+global.categorias = [];
 
 var bodyparser = require("body-parser");
 

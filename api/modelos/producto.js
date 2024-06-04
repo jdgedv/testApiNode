@@ -11,28 +11,30 @@ productoModel.validaParams = function(post, callback) {
     
                   
     var existeCod_producto = productos.findIndex((item) => item.cod_producto == post.cod_producto)
+    if(!post.cod_cat){
+        return callback({state: false, mensaje: 'el campo cod_cat es obligatorio', campo: "cod_cat",campo: "cod_cat"});
+    }
+
+    if(existeCat== -1){
+        return callback({state: false, mensaje: 'el campo cod_cat es debe existir en las categorias',campo: "cod_cat"})
+    }
+
+    if(existeCod_producto != -1){
+        return callback({state: false, mensaje: 'El cod_producto debe ser unico', campo: "cod_producto"});
+    }
+
+    
 
 
     if(!post.cod_producto){
-        return callback({state: false, mensaje: 'El código de producto es obligatorio'});
+        return callback({state: false, mensaje: 'el campo cod_producto es obligatorio', campo: "cod_producto"});
     }
-    if(!post.cod_cat){
-        return callback({state: false, mensaje: 'El código de categoría es obligatorio'});
+    if(post.cod_producto && (post.cod_producto.length>15)){
+        return callback({state: false, mensaje: 'el campo cod_producto debe tener minimo 15 caracteres', campo: "cod_producto"});
     }
-    if(!post.nombre){
-        return callback({state: false, mensaje: 'El nombre del producto es obligatorio'});
-    }
-
-
-    
-    if(existeCod_producto != -1){
-        return callback({state: false, mensaje: 'El código de producto debe ser único'});
-    }
-
-    if(post.cod_producto && (post.cod_producto.length>15 || post.cod_producto.length<1)){
-        return callback({state: false, mensaje: 'El código de producto tiene un máximo de 15 caracteres'});
-    }
-
+    // if(post.cod_producto && (post.cod_producto.length<1)){
+    //     return callback({state: false, mensaje: 'El código de producto tiene un máximo de 15 caracteres'});
+    // }
     const regex = new RegExp(/^[a-zA-Z0-9 ]+$/);
 
     // Texto a validar
@@ -42,21 +44,36 @@ console.log(texto);
     const esValido = regex.test(texto);
 
     if (!esValido) {
-        return callback({state: false, mensaje: 'El código de producto solo puede contener letras y/o números.'});
+        return callback({state: false, mensaje: 'el campo cod_producto no acepta caracteres especiales', campo: "cod_producto"});
     } 
-
-    if(post.nombre.length>50 || post.nombre.length<4){
-        return callback({state: false, mensaje: 'El nombre de producto debe tener entre 4 y 50 caracteres'})
+    
+    if(!post.nombre){
+        return callback({state: false, mensaje: 'el campo nombre es obligatorio', campo: "nombre"});
     }
+
+    if(post.nombre.length>50){
+        return callback({state: false, mensaje: 'el campo nombre debe contener maximo 50 caracteres', campo: "nombre"});
+    }
+
+    if(post.nombre.length<4){
+        return callback({state: false, mensaje: 'el campo nombre debe contener minimo 4 caracteres', campo: "nombre"})
+    }
+
+
+    
+    
+
+    
+
+   
+
+    
 
         
 
     
 
-    if(existeCat== -1){
-        return callback({state: false, mensaje: 'La categoria ingresada no existe'})
-    }
-
+    
     return callback({state: true});
     
 }

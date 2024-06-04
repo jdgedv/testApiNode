@@ -7,26 +7,31 @@ var categoriaModel ={}
 categoriaModel.validaParams = function(post, callback) {
 
     if(!post.cod_cat || post.cod_cat == '' || Number(post.cod_cat) == 0){
-        return callback({state: false, mensaje: 'El código de categoría no puede ser nulo o vacío'})
+        return callback({state: false, mensaje: 'el campo cod_cat es obligatorio', campo: "cod_cat"})
     }
     else if(post.cod_cat.length>5 || post.cod_cat.length<3){
-        return callback({state: false, mensaje: 'El código de categoría debe tener entre 3 y 5 caracteres'})
+        return callback({state: false, mensaje: 'el campo cod_cat debe tener maximo 5 caracteres', campo: "cod_cat"})
     }else if(isNaN(post.cod_cat)){
-        return callback({state: false, mensaje: 'El código de categoría debe ser un número'});
+        return callback({state: false, mensaje: 'el campo cod_cat debe tener ser numerico', campo: "cod_cat"});
     }
 
     if(!post.nombre || post.nombre == ''){
-        return callback({state: false, mensaje: 'El nombre de categoría es obligatorio'})
+        return callback({state: false, mensaje: 'el campo nombre es obligatorio', campo: "nombre"})
     }
-    else if(post.nombre.length>50 || post.nombre.length<3){
-        return callback({state: false, mensaje: 'El nombre de categoría debe tener entre 3 y 50 caracteres'})
+    else if(post.nombre.length>50 ){
+        return callback({state: false, mensaje: 'el campo nombre debe tener maximo 50 caracteres', campo: "nombre"})
+    }
+    else if(post.nombre.length<3){
+        return callback({state: false, mensaje: 'el campo nombre debe tener minimo 3 caracteres', campo: "nombre"})
     }
 
+    
+
     if(!post.estado || post.estado == ''){
-        return callback({state: false, mensaje: 'El estado de la categoría es obligatorio'})
+        return callback({state: false, mensaje: 'el campo estado es obligatorio', campo: "estado"})
     }
     else if(post.estado.toString()!='true' && post.estado.toString()!='false'){
-        return callback({state: false, mensaje: 'El estado de la categoría solo puede ser true o false'})
+        return callback({state: false, mensaje: 'el campo estado es debe ser true o false', campo: "estado"})
     }
 
 
